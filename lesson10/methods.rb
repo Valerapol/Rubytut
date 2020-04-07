@@ -10,6 +10,17 @@ def get_letters
   if (slovo == nil || slovo == "")
     abort "Вы не ввели слово для игры"
   end
+#  slovo1 = slovo.split("")
+#  slovo2 = []
+#  for symbol in slovo1 do
+#    if (symbol == "ё")
+#      slovo2 << "е"
+#    elsif (symbol == "й")
+#      slovo2 << "и"
+#    else
+#      slovo2 << symbol
+#    end
+#  end
   return slovo.split("")
 end
 
@@ -19,6 +30,12 @@ def get_user_input
   while letter == "" do
     letter = STDIN.gets.encode("UTF-8").chomp
   end
+#  if (letter == "ё")
+#    letter = "е"
+#  end
+#  if (letter == "й")
+#    letter = "и"
+#  end
   return letter
 end
 
@@ -28,10 +45,26 @@ def check_result(user_input, letters, good_letters, bad_letters)
       return 0
   end
 
-  if letters.include?(user_input)
+  if letters.include?(user_input) ||
+    (user_input == "е" && letters.include?("ё")) ||
+    (user_input == "ё" && letters.include?("е")) ||
+    (user_input == "и" && letters.include?("й")) ||
+    (user_input == "й" && letters.include?("и"))
     good_letters << user_input
+    if user_input =="е"
+      good_letters << "ё"
+    end
+    if user_input =="ё"
+      good_letters << "е"
+    end
+    if user_input =="и"
+      good_letters << "й"
+    end
+    if user_input =="й"
+      good_letters << "и"
+    end
       # Условие когда отгадано всё слово
-    if letters.uniq.size == good_letters.size
+    if (letters - good_letters).empty?
       return 1
     else
       return 0
@@ -64,7 +97,7 @@ def print_status(letters, good_letters, bad_letters, errors)
   if errors >= 7
     puts "Вы проиграли :("
   else
-    if letters.uniq.size == good_letters.size
+    if (letters - good_letters).empty?
       puts "Поздравляем! Вы выиграли! \n\n"
     else
       puts "У вас осталось попыток: " + (7 - errors).to_s
