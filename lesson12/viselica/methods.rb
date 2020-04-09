@@ -10,17 +10,6 @@ def get_letters
   if (slovo == nil || slovo == "")
     abort "Вы не ввели слово для игры"
   end
-#  slovo1 = slovo.split("")
-#  slovo2 = []
-#  for symbol in slovo1 do
-#    if (symbol == "ё")
-#      slovo2 << "е"
-#    elsif (symbol == "й")
-#      slovo2 << "и"
-#    else
-#      slovo2 << symbol
-#    end
-#  end
   return slovo.split("")
 end
 
