@@ -5,12 +5,14 @@ puts "Введите пароль от вашей почты #{my_mail} для �
 pass = STDIN.noecho(&:gets).chomp
 puts "Кому отправить письмо?:"
 send_to = STDIN.gets.chomp
+puts "Введите тему письма:"
+subject = STDIN.gets
 puts "Что написать в письме?:"
 body = STDIN.gets
 
 Pony.mail(
   {
-    :subject => "Привет!",
+    :subject => subject,
     :body => body,
     :to => send_to,
     :from => my_mail,
